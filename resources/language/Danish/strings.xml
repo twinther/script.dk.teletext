@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<strings>
+    <string id="99">Siden findes ikke</string>
+    <string id="100">Sidenummer</string>
+    <string id="101">Forside</string>
+    <string id="102">Indhold</string>
+    <string id="103">Nyheder</string>
+    <string id="104">Sport</string>
+    <string id="105">Vejret</string>
+    <string id="106">Trafik</string>
+    <string id="107">TV</string>
+    <string id="108">Radio</string>
+
+    <string id="201">DR1</string>
+    <string id="202">DR2</string>
+    <string id="203">TV2</string>
+
+</strings>
