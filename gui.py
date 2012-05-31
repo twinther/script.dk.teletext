@@ -47,6 +47,9 @@ ACTION_REMOTE7 = 65
 ACTION_REMOTE8 = 66
 ACTION_REMOTE9 = 67
 
+ACTION_NEXT_SCENE = 138
+ACTION_PREV_SCENE = 139
+
 ACTION_JUMP_SMS2 = 142
 ACTION_JUMP_SMS3 = 143
 ACTION_JUMP_SMS4 = 144
@@ -64,6 +67,9 @@ TELETEXT_URL_DR1 = 'http://www.dr.dk/cgi-bin/fttv1.exe/%s'
 TELETEXT_URL_DR2 = 'http://www.dr.dk/cgi-bin/fttv2.exe/%s'
 
 class TeleTextWindow(xbmcgui.WindowXML):
+    C_PAGE_PREV_SUBPAGE = 96
+    C_PAGE_NEXT_SUBPAGE = 97
+    C_PAGE_SUBPAGE = 98
     C_PAGE_NOT_FOUND = 99
     C_PAGE_IDX = 100
     C_PAGE_FRONTPAGE = 101
@@ -86,6 +92,7 @@ class TeleTextWindow(xbmcgui.WindowXML):
     def __init__(self):
         super(TeleTextWindow, self).__init__()
         self.currentPageIdx = -1
+        self.currentSubPageIdx = -1
         self.numbers = ''
         self.source = source.DR1Source()
 
@@ -117,9 +124,9 @@ class TeleTextWindow(xbmcgui.WindowXML):
                 self.loadPage(int(self.numbers))
                 self.numbers = ''
 
-        elif action.getId() == ACTION_PAGE_UP:
+        elif action.getId() in [ACTION_PAGE_UP, ACTION_NEXT_SCENE, ACTION_NEXT_ITEM]:
             self.loadPage(self.currentPageIdx + 1)
-        elif action.getId() == ACTION_PAGE_DOWN:
+        elif action.getId() in [ACTION_PAGE_DOWN, ACTION_PREV_SCENE, ACTION_PREV_ITEM]:
             self.loadPage(self.currentPageIdx - 1)
 
     @buggalo.buggalo_try_except()
@@ -133,6 +140,17 @@ class TeleTextWindow(xbmcgui.WindowXML):
         elif controlId == self.C_SOURCE_TV2:
             self.source = source.TV2Source()
             self.loadPage()
+
+        elif controlId == self.C_PAGE_PREV_SUBPAGE:
+            self.currentSubPageIdx -= 1
+            if self.currentSubPageIdx < 1:
+                self.currentSubPageIdx = self.source.getSubPageCount()
+            self.loadPage(self.currentPageIdx, self.currentSubPageIdx)
+        elif controlId == self.C_PAGE_NEXT_SUBPAGE:
+            self.currentSubPageIdx += 1
+            if self.currentSubPageIdx > self.source.getSubPageCount():
+                self.currentSubPageIdx = 1
+            self.loadPage(self.currentPageIdx, self.currentSubPageIdx)
 
         elif controlId == self.C_PAGE_FRONTPAGE:
             self.loadPage(self.source.getPageIndex(source.PAGE_FRONTPAGE))
@@ -157,7 +175,8 @@ class TeleTextWindow(xbmcgui.WindowXML):
         pass
 
 
-    def loadPage(self, pageIdx = 100):
+    def loadPage(self, pageIdx = 100, subPageIdx = 1):
+        print "pageIdx = %d; subPageIdx = %d" % (pageIdx, subPageIdx)
         self.getControl(TeleTextWindow.C_PAGE_NOT_FOUND).setVisible(False)
         if pageIdx < 100:
             pageIdx = 999
@@ -165,11 +184,14 @@ class TeleTextWindow(xbmcgui.WindowXML):
             pageIdx = 100
 
         self.currentPageIdx = pageIdx
+        self.currentSubPageIdx = subPageIdx
         self.getControl(TeleTextWindow.C_PAGE_IDX).setLabel(str(pageIdx))
 
         try:
-            url = self.source.getPageImageUrl(pageIdx)
+            url = self.source.getPageImageUrl(pageIdx, subPageIdx)
             self.getControl(TeleTextWindow.C_IMAGE).setImage(url)
+            subPageLabel = "%d / %d" % (subPageIdx, self.source.getSubPageCount())
+            self.getControl(TeleTextWindow.C_PAGE_SUBPAGE).setLabel(subPageLabel)
         except source.PageNotFoundException:
             self.getControl(TeleTextWindow.C_PAGE_NOT_FOUND).setVisible(True)
 

@@ -20,16 +20,6 @@
 import urllib2
 import re
 
-class PageNotFoundException(Exception):
-    pass
-
-class Source(object):
-    PAGES = {}
-    def getPageIndex(self, page):
-        if self.PAGES.has_key(page):
-            return self.PAGES[page]
-        return None
-
 PAGE_FRONTPAGE = 1
 PAGE_INDEX = 2
 PAGE_NEWS = 3
@@ -39,8 +29,24 @@ PAGE_TRAFFIC = 6
 PAGE_TV = 7
 PAGE_RADIO = 8
 
+class PageNotFoundException(Exception):
+    pass
+
+class Source(object):
+    PAGES = {}
+    def __init__(self):
+        self.subPageCount = 1
+
+    def getPageIndex(self, page):
+        if self.PAGES.has_key(page):
+            return self.PAGES[page]
+        return None
+
+    def getSubPageCount(self):
+        return self.subPageCount
+
 class DR1Source(Source):
-    BASE_URL = 'http://www.dr.dk/cgi-bin/fttv1.exe/<PAGE>'
+    BASE_URL = 'http://www.dr.dk/cgi-bin/fttv1.exe/<PAGE>/<SUBPAGE>'
     PAGES = {
         PAGE_FRONTPAGE : 100,
         PAGE_INDEX : 104,
@@ -52,10 +58,17 @@ class DR1Source(Source):
         PAGE_RADIO : 600
     }
 
-    def getPageImageUrl(self, page):
-        u = urllib2.urlopen(self.BASE_URL.replace('<PAGE>', str(page)))
+    def getPageImageUrl(self, page, subPage = 1):
+        u = urllib2.urlopen(self.BASE_URL.replace('<PAGE>', str(page)).replace('<SUBPAGE>', str(subPage)))
         html = u.read()
         u.close()
+
+        if subPage == 1:
+            m = re.search('exe/[0-9]+/([0-9]+).*?coords="60, 43', html)
+            if m is not None:
+                self.subPageCount = int(m.group(1))
+            else:
+                self.subPageCount = 1
 
         m = re.search('SRC="(/fttvimg/[^"]+)', html)
         if m is not None:
@@ -65,7 +78,7 @@ class DR1Source(Source):
 
 
 class DR2Source(Source):
-    BASE_URL = 'http://www.dr.dk/cgi-bin/fttv2.exe/<PAGE>'
+    BASE_URL = 'http://www.dr.dk/cgi-bin/fttv2.exe/<PAGE>/<SUBPAGE>'
     PAGES = {
         PAGE_FRONTPAGE : 100,
         PAGE_INDEX : 104,
@@ -77,10 +90,17 @@ class DR2Source(Source):
         PAGE_RADIO : 600
     }
 
-    def getPageImageUrl(self, page):
-        u = urllib2.urlopen(self.BASE_URL.replace('<PAGE>', str(page)))
+    def getPageImageUrl(self, page, subPage = 1):
+        u = urllib2.urlopen(self.BASE_URL.replace('<PAGE>', str(page)).replace('<SUBPAGE>', str(subPage)))
         html = u.read()
         u.close()
+
+        if subPage == 1:
+            m = re.search('exe/[0-9]+/([0-9]+).*?coords="60, 43', html)
+            if m is not None:
+                self.subPageCount = int(m.group(1))
+            else:
+                self.subPageCount = 1
 
         m = re.search('SRC="(/fttvimg/[^"]+)', html)
         if m is not None:
@@ -90,7 +110,7 @@ class DR2Source(Source):
 
 
 class TV2Source(Source):
-    BASE_URL = 'http://ttv.tv2.dk/index.php?side=<PAGE>'
+    BASE_URL = 'http://ttv.tv2.dk/index.php?side=<PAGE>&underside=<SUBPAGE>'
     PAGES = {
         PAGE_FRONTPAGE : 100,
         PAGE_INDEX : 102,
@@ -100,10 +120,17 @@ class TV2Source(Source):
         PAGE_TV : 300
     }
 
-    def getPageImageUrl(self, page):
-        u = urllib2.urlopen(self.BASE_URL.replace('<PAGE>', str(page)))
+    def getPageImageUrl(self, page, subPage = 1):
+        u = urllib2.urlopen(self.BASE_URL.replace('<PAGE>', str(page)).replace('<SUBPAGE>', str(subPage)))
         html = u.read()
         u.close()
+
+        if subPage == 1:
+            m = re.search('underside=([0-9]+)">[0-9]+</a></li></ol>', html)
+            if m is not None:
+                self.subPageCount = int(m.group(1))
+            else:
+                self.subPageCount = 1
 
         m = re.search('src="(/gif.php[^"]+)', html)
         if m is not None:

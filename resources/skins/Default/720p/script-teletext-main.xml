@@ -33,6 +33,25 @@
         </control>
         <control type="label" id="100">
             <posx>200</posx>
+            <posy>0</posy>
+            <width>200</width>
+            <height>40</height>
+            <align>right</align>
+            <font>font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+        </control>
+
+        <control type="label">
+            <posx>0</posx>
+            <posy>40</posy>
+            <width>200</width>
+            <height>40</height>
+            <label>$ADDON[script.dk.teletext 98]</label>
+            <font>font13</font>
+            <textcolor>FFFFFFFF</textcolor>
+        </control>
+        <control type="label" id="98">
+            <posx>200</posx>
             <posy>40</posy>
             <width>200</width>
             <height>40</height>
@@ -40,6 +59,7 @@
             <font>font13</font>
             <textcolor>FFFFFFFF</textcolor>
         </control>
+
         <control type="label" id="99">
             <posx>200</posx>
             <posy>80</posy>
@@ -57,22 +77,50 @@
             <width>200</width>
             <height>520</height>
 
-            <control type="button" id="101">
+            <control type="button" id="96">
                 <posx>0</posx>
                 <posy>0</posy>
+                <width>100</width>
+                <height>40</height>
+                <label>$ADDON[script.dk.teletext 96]</label>
+                <align>center</align>
+                <font>font13</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <onup>107</onup>
+                <ondown>101</ondown>
+                <onright>97</onright>
+            </control>
+            <control type="button" id="97">
+                <posx>100</posx>
+                <posy>0</posy>
+                <width>100</width>
+                <height>40</height>
+                <label>$ADDON[script.dk.teletext 97]</label>
+                <align>center</align>
+                <font>font13</font>
+                <textcolor>FFFFFFFF</textcolor>
+                <onup>107</onup>
+                <ondown>101</ondown>
+                <onleft>96</onleft>
+                <onright>201</onright>
+            </control>
+
+            <control type="button" id="101">
+                <posx>0</posx>
+                <posy>50</posy>
                 <width>200</width>
                 <height>40</height>
                 <label>$ADDON[script.dk.teletext 101]</label>
                 <align>center</align>
                 <font>font13</font>
                 <textcolor>FFFFFFFF</textcolor>
-                <onup>107</onup>
+                <onup>97</onup>
                 <ondown>102</ondown>
                 <onright>201</onright>
             </control>
             <control type="button" id="102">
                 <posx>0</posx>
-                <posy>50</posy>
+                <posy>100</posy>
                 <width>200</width>
                 <height>40</height>
                 <label>$ADDON[script.dk.teletext 102]</label>
@@ -85,7 +133,7 @@
             </control>
             <control type="button" id="103">
                 <posx>0</posx>
-                <posy>100</posy>
+                <posy>150</posy>
                 <width>200</width>
                 <height>40</height>
                 <label>$ADDON[script.dk.teletext 103]</label>
@@ -98,7 +146,7 @@
             </control>
             <control type="button" id="104">
                 <posx>0</posx>
-                <posy>150</posy>
+                <posy>200</posy>
                 <width>200</width>
                 <height>40</height>
                 <label>$ADDON[script.dk.teletext 104]</label>
@@ -111,7 +159,7 @@
             </control>
             <control type="button" id="105">
                 <posx>0</posx>
-                <posy>200</posy>
+                <posy>250</posy>
                 <width>200</width>
                 <height>40</height>
                 <label>$ADDON[script.dk.teletext 105]</label>
@@ -124,7 +172,7 @@
             </control>
             <control type="button" id="106">
                 <posx>0</posx>
-                <posy>250</posy>
+                <posy>300</posy>
                 <width>200</width>
                 <height>40</height>
                 <label>$ADDON[script.dk.teletext 106]</label>
@@ -137,7 +185,7 @@
             </control>
             <control type="button" id="107">
                 <posx>0</posx>
-                <posy>300</posy>
+                <posy>350</posy>
                 <width>200</width>
                 <height>40</height>
                 <label>$ADDON[script.dk.teletext 107]</label>
@@ -145,7 +193,7 @@
                 <font>font13</font>
                 <textcolor>FFFFFFFF</textcolor>
                 <onup>106</onup>
-                <ondown>101</ondown>
+                <ondown>97</ondown>
                 <onright>201</onright>
             </control>
         </control>
@@ -167,7 +215,7 @@
                 <textcolor>FFFFFFFF</textcolor>
                 <onup>203</onup>
                 <ondown>202</ondown>
-                <onleft>101</onleft>
+                <onleft>97</onleft>
             </control>
             <control type="button" id="202">
                 <posx>0</posx>
@@ -180,7 +228,7 @@
                 <textcolor>FFFFFFFF</textcolor>
                 <onup>201</onup>
                 <ondown>203</ondown>
-                <onleft>101</onleft>
+                <onleft>97</onleft>
             </control>
             <control type="button" id="203">
                 <posx>0</posx>
@@ -193,7 +241,7 @@
                 <textcolor>FFFFFFFF</textcolor>
                 <onup>202</onup>
                 <ondown>201</ondown>
-                <onleft>101</onleft>
+                <onleft>97</onleft>
             </control>
         </control>
 

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <strings>
+    <string id="96">&lt;&lt;</string>
+    <string id="97">&gt;&gt;</string>
+    <string id="98">Underside</string>
     <string id="99">Siden findes ikke</string>
     <string id="100">Sidenummer</string>
     <string id="101">Forside</string>
