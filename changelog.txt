@@ -1,5 +1,6 @@
-[B]Version 0.0.2 - 2012-06-XX[/B]
+[B]Version 0.0.2 - 2012-06-03[/B]
 - Added support for subpages
+- Mapped additional keys for changing page
 
 [B]Version 0.0.1 - 2012-05-29[/B]
 - Proof of concept

@@ -36,6 +36,9 @@ ACTION_SHOW_INFO = 11
 ACTION_NEXT_ITEM = 14
 ACTION_PREV_ITEM = 15
 
+ACTION_BIG_STEP_FORWARD = 22
+ACTION_BIG_STEP_BACK = 23
+
 ACTION_REMOTE0 = 58
 ACTION_REMOTE1 = 59
 ACTION_REMOTE2 = 60
@@ -124,9 +127,9 @@ class TeleTextWindow(xbmcgui.WindowXML):
                 self.loadPage(int(self.numbers))
                 self.numbers = ''
 
-        elif action.getId() in [ACTION_PAGE_UP, ACTION_NEXT_SCENE, ACTION_NEXT_ITEM]:
+        elif action.getId() in [ACTION_PAGE_UP, ACTION_NEXT_SCENE, ACTION_NEXT_ITEM, ACTION_BIG_STEP_FORWARD]:
             self.loadPage(self.currentPageIdx + 1)
-        elif action.getId() in [ACTION_PAGE_DOWN, ACTION_PREV_SCENE, ACTION_PREV_ITEM]:
+        elif action.getId() in [ACTION_PAGE_DOWN, ACTION_PREV_SCENE, ACTION_PREV_ITEM, ACTION_BIG_STEP_BACK]:
             self.loadPage(self.currentPageIdx - 1)
 
     @buggalo.buggalo_try_except()
